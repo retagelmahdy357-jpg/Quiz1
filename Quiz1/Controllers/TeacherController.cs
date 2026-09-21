@@ -5,7 +5,7 @@ using Quiz1.Data;
 using Quiz1.DTO;
 using Quiz1.Model;
 
-namespace Quiz1.Controllers
+namespace Quiz1.Controllersb
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,35 +15,39 @@ namespace Quiz1.Controllers
         public TeacherController()
         {
             _context = new AppDbContext();
+
+
+            
         }
-        [HttpGet]
-        public ActionResult<List<TeachearDto>> GetAllTeacher()
-        {
-            var teach = _context.Teachears.Include(x=>x.Department).ToList();
+        //[HttpGet]
+        //public ActionResult<List<TeachearDto>> GetAllTeacher()
+        //{
+        //    var teach = _context.Teachears.Include(x=>x.Department).ToList();
 
-            if (teach.Count == 0||teach==null)
-            {
-                return NotFound();
-            }
-            var teachdto = new List<TeachearDto>();
-            foreach (var x in teach)
-            {
-                var dto = new TeachearDto
-                {
-                    TeachearId = x.TeachearId,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Email = x.Email,
-                    PhoneNumber = x.PhoneNumber,
-                    Salary = x.Salary,
-                    DepartmentName = x.Department?.Name
+        //    if (teach.Count == 0||teach==null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var teachdto = new List<TeachearDto>();
+        //    foreach (var x in teach)
+        //    {
+        //        var dto = new TeachearDto
+        //        {
+        //            TeachearId = x.TeachearId,
+        //            FirstName = x.FirstName,
+        //            LastName = x.LastName,
+        //            Email = x.Email,
+        //            PhoneNumber = x.PhoneNumber,
+        //            Salary = x.Salary,
+        //            DepartmentName = x.Department?.Name
 
-                };
-               teachdto.Add(dto);
-            }
-            return Ok(teachdto);
+        //        };
+        //       teachdto.Add(dto);
+        //    }
+        //    return Ok(teachdto);
         
-    }
+   // }
 
+  
     }
 }
