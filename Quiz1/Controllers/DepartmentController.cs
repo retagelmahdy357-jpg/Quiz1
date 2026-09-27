@@ -12,9 +12,9 @@ namespace Quiz1.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly AppDbContext _context;
-        public DepartmentController()
+        public DepartmentController(AppDbContext context)
         {
-            _context = new AppDbContext();
+            _context =context;
         }
         [HttpGet ("{id}")]
         public IActionResult GetDepartmentById(int id)

@@ -5,6 +5,7 @@ using Quiz1.Data;
 using Quiz1.DTO;
 using Quiz1.Mappings;
 using Quiz1.Model;
+using Quiz1.Repos.Abstraction;
 
 namespace Quiz1.Controllers
 {
@@ -12,54 +13,47 @@ namespace Quiz1.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IStudentRepo _repo;
         private readonly IMapper _mapper;
-        public StudentController()
+        public StudentController(IStudentRepo repo, IMapper mapper)
         {
-            _context = new AppDbContext();
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<StudentProfile>();
-
-            });
-            _mapper = config.CreateMapper();
+           _repo= repo;
+            _mapper = mapper;
         }
         [HttpGet]
         public ActionResult<List<StudentDto>> GetStudents()
         {
-            var students = _context.Students.ToList();
-
-            var studentDtos = _mapper.Map<List<StudentDto>>(students);
-
-            return Ok(studentDtos);
+            return Ok(_repo.StudentGetAll());
         }
-
-
-
-
-
-
 
         //[HttpGet]
         [HttpGet("{id}")]
         public ActionResult<StudentDto> GetById(int id)
         {
-            var student = _context.Students.Find(id);
-            if (student == null)
+            var res=_repo.GetById(id);
+            if (res == null)
             {
                 return NotFound();
             }
-            var st = _mapper.Map<StudentDto>(student);
-            return st;
+            return Ok(res);
         }
 
         [HttpPost]
         public IActionResult CreateStudent(createStudentDto studentdto)
         {
-            var stdto=_mapper.Map<Student>(studentdto);
+            var stdto = _mapper.Map<Student>(studentdto);
             _context.Add(stdto);
             _context.SaveChanges();
-            return StatusCode(201,stdto);
+            return StatusCode(201, stdto);
+        }
+
+
+        [HttpGet("Get linq")]
+        public IActionResult GetStudent()
+        {
+            var t = _context.Students.OrderBy(x => x.ClassRoomId).ThenBy(s => s.FirstName).Select(x => x.FirstName).ToList();
+            return Ok(t);
+
         }
 
 

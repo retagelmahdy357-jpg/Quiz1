@@ -12,10 +12,10 @@ namespace Quiz1.Controllersb
     public class TeacherController : ControllerBase
     {
         private readonly AppDbContext _context;
-        public TeacherController()
+        public TeacherController(AppDbContext context)
         {
-            _context = new AppDbContext();
-
+            
+            _context = context;
 
             
         }
