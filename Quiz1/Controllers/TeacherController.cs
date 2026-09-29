@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Quiz1.Data;
 using Quiz1.DTO;
 using Quiz1.Model;
+using Quiz1.UnitOfWork;
 
 namespace Quiz1.Controllersb
 {
@@ -11,20 +12,74 @@ namespace Quiz1.Controllersb
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public TeacherController(AppDbContext context)
+        private readonly IUnitOfWork _UitOfWork;
+        public TeacherController(IUnitOfWork unitOfWork)
         {
-            
-            _context = context;
 
+            _UitOfWork = unitOfWork;
+
+        }
+        [HttpGet("{deptid}/{salsry}")]
+        public IActionResult GetTeachearHaveSepecificDepartmentIdAndSalary(int deptid, int salsry)
+        {
+          var teach=  _UitOfWork.teachear.GetTeachearHaveSepecificDepartmentIdAndSalary(deptid, salsry);
+            return Ok(teach);
+             
             
         }
-        //[HttpGet]
-        //public ActionResult<List<TeachearDto>> GetAllTeacher()
-        //{
-        //    var teach = _context.Teachears.Include(x=>x.Department).ToList();
 
-        //    if (teach.Count == 0||teach==null)
+        [HttpGet("{email}")]
+        public IActionResult GetTeatcherByEmail(string email)
+        {
+           var teach= _UitOfWork.teachear.GetTeatcherByEmail(email);
+            return Ok(teach);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     //   [HttpGet]
+     //public ActionResult<List<TeachearDto>> GetAllTeacher()
+     //{
+     //    var teach = _context.Teachears.Include(x => x.Department).ToList();
+
+        //    if (teach.Count == 0 || teach == null)
         //    {
         //        return NotFound();
         //    }
@@ -42,12 +97,12 @@ namespace Quiz1.Controllersb
         //            DepartmentName = x.Department?.Name
 
         //        };
-        //       teachdto.Add(dto);
+        //        teachdto.Add(dto);
         //    }
         //    return Ok(teachdto);
-        
-   // }
 
-  
+        //}
+
+
     }
 }

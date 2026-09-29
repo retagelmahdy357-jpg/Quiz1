@@ -12,8 +12,8 @@ using Quiz1.Data;
 namespace Quiz1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260920110852_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260928110454_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,22 @@ namespace Quiz1.Migrations
                     b.HasKey("ClassRoomId");
 
                     b.ToTable("Classrooms");
+
+                    b.HasData(
+                        new
+                        {
+                            ClassRoomId = 1,
+                            Capacity = 30,
+                            GradeLevel = 10,
+                            Name = "Software 1A"
+                        },
+                        new
+                        {
+                            ClassRoomId = 2,
+                            Capacity = 25,
+                            GradeLevel = 10,
+                            Name = "Electronics 1A"
+                        });
                 });
 
             modelBuilder.Entity("Quiz1.Model.Department", b =>
@@ -72,6 +88,20 @@ namespace Quiz1.Migrations
                         .IsUnique();
 
                     b.ToTable("Department");
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentId = 1,
+                            Description = "Software and programming department",
+                            Name = "Computer Science"
+                        },
+                        new
+                        {
+                            DepartmentId = 2,
+                            Description = "Electronics and embedded systems department",
+                            Name = "Electronics"
+                        });
                 });
 
             modelBuilder.Entity("Quiz1.Model.Enrollment", b =>
@@ -102,6 +132,72 @@ namespace Quiz1.Migrations
                         .IsUnique();
 
                     b.ToTable("Enrollments");
+
+                    b.HasData(
+                        new
+                        {
+                            EnrollmentId = 1,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 90m,
+                            StudentId = 1,
+                            SubjectId = 1
+                        },
+                        new
+                        {
+                            EnrollmentId = 2,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 85m,
+                            StudentId = 1,
+                            SubjectId = 2
+                        },
+                        new
+                        {
+                            EnrollmentId = 3,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 78m,
+                            StudentId = 2,
+                            SubjectId = 1
+                        },
+                        new
+                        {
+                            EnrollmentId = 4,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 88m,
+                            StudentId = 2,
+                            SubjectId = 3
+                        },
+                        new
+                        {
+                            EnrollmentId = 5,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 95m,
+                            StudentId = 3,
+                            SubjectId = 1
+                        },
+                        new
+                        {
+                            EnrollmentId = 6,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 82m,
+                            StudentId = 4,
+                            SubjectId = 4
+                        },
+                        new
+                        {
+                            EnrollmentId = 7,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 91m,
+                            StudentId = 5,
+                            SubjectId = 4
+                        },
+                        new
+                        {
+                            EnrollmentId = 8,
+                            EnrollmentDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Grade = 76m,
+                            StudentId = 6,
+                            SubjectId = 2
+                        });
                 });
 
             modelBuilder.Entity("Quiz1.Model.Student", b =>
@@ -145,6 +241,68 @@ namespace Quiz1.Migrations
                         .IsUnique();
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            StudentId = 1,
+                            ClassRoomId = 1,
+                            DateofBirth = new DateTime(2010, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ali@student.com",
+                            FirstName = "Ali",
+                            LastName = "Mohamed",
+                            PhoneNumber = "01011111111"
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            ClassRoomId = 1,
+                            DateofBirth = new DateTime(2010, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "omar@student.com",
+                            FirstName = "Omar",
+                            LastName = "Ahmed",
+                            PhoneNumber = "01022222222"
+                        },
+                        new
+                        {
+                            StudentId = 3,
+                            ClassRoomId = 1,
+                            DateofBirth = new DateTime(2010, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "youssef@student.com",
+                            FirstName = "Youssef",
+                            LastName = "Hany",
+                            PhoneNumber = "01033333333"
+                        },
+                        new
+                        {
+                            StudentId = 4,
+                            ClassRoomId = 2,
+                            DateofBirth = new DateTime(2010, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mariam@student.com",
+                            FirstName = "Mariam",
+                            LastName = "Ali",
+                            PhoneNumber = "01044444444"
+                        },
+                        new
+                        {
+                            StudentId = 5,
+                            ClassRoomId = 2,
+                            DateofBirth = new DateTime(2009, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "salma@student.com",
+                            FirstName = "Salma",
+                            LastName = "Mostafa",
+                            PhoneNumber = "01055555555"
+                        },
+                        new
+                        {
+                            StudentId = 6,
+                            ClassRoomId = 2,
+                            DateofBirth = new DateTime(2010, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "karim@student.com",
+                            FirstName = "Karim",
+                            LastName = "Tarek",
+                            PhoneNumber = "01066666666"
+                        });
                 });
 
             modelBuilder.Entity("Quiz1.Model.Subject", b =>
@@ -176,6 +334,40 @@ namespace Quiz1.Migrations
                     b.HasIndex("TeachearId");
 
                     b.ToTable("SubjectSet");
+
+                    b.HasData(
+                        new
+                        {
+                            SubjectId = 1,
+                            Description = "Programming fundamentals and OOP",
+                            Grade = 100m,
+                            Name = "C++ Programming",
+                            TeachearId = 1
+                        },
+                        new
+                        {
+                            SubjectId = 2,
+                            Description = "Database and SQL",
+                            Grade = 100m,
+                            Name = "Database Systems",
+                            TeachearId = 2
+                        },
+                        new
+                        {
+                            SubjectId = 3,
+                            Description = "Web development fundamentals",
+                            Grade = 100m,
+                            Name = "Web Development",
+                            TeachearId = 1
+                        },
+                        new
+                        {
+                            SubjectId = 4,
+                            Description = "Microcontrollers and embedded programming",
+                            Grade = 100m,
+                            Name = "Embedded Systems",
+                            TeachearId = 3
+                        });
                 });
 
             modelBuilder.Entity("Quiz1.Model.Teachear", b =>
@@ -219,6 +411,38 @@ namespace Quiz1.Migrations
                         .IsUnique();
 
                     b.ToTable("Teachears");
+
+                    b.HasData(
+                        new
+                        {
+                            TeachearId = 1,
+                            DepartmentId = 1,
+                            Email = "ahmed@school.com",
+                            FirstName = "Ahmed",
+                            LastName = "Hassan",
+                            PhoneNumber = "01012345678",
+                            Salary = 15000m
+                        },
+                        new
+                        {
+                            TeachearId = 2,
+                            DepartmentId = 1,
+                            Email = "mona@school.com",
+                            FirstName = "Mona",
+                            LastName = "Ali",
+                            PhoneNumber = "01123456789",
+                            Salary = 14000m
+                        },
+                        new
+                        {
+                            TeachearId = 3,
+                            DepartmentId = 2,
+                            Email = "omar@school.com",
+                            FirstName = "Omar",
+                            LastName = "Mahmoud",
+                            PhoneNumber = "01234567890",
+                            Salary = 15500m
+                        });
                 });
 
             modelBuilder.Entity("Quiz1.Model.Enrollment", b =>

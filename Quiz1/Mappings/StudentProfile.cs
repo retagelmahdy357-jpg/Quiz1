@@ -9,7 +9,8 @@ namespace Quiz1.Mappings
         public StudentProfile()
         {
             CreateMap< createStudentDto, Student>();
-
+            CreateMap<Student,StudentDto>();
+            CreateMap<StudentDto,Student>();
             CreateMap<Student, StudentDto>()
                 .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));

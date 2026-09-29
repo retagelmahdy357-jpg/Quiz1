@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Quiz1.Migrations
 {
     /// <inheritdoc />
-    public partial class quizz : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +29,7 @@ namespace Quiz1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DepartmentSet",
+                name: "Department",
                 columns: table => new
                 {
                     DepartmentId = table.Column<int>(type: "int", nullable: false)
@@ -37,7 +39,7 @@ namespace Quiz1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DepartmentSet", x => x.DepartmentId);
+                    table.PrimaryKey("PK_Department", x => x.DepartmentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,9 +83,9 @@ namespace Quiz1.Migrations
                 {
                     table.PrimaryKey("PK_Teachears", x => x.TeachearId);
                     table.ForeignKey(
-                        name: "FK_Teachears_DepartmentSet_DepartmentId",
+                        name: "FK_Teachears_Department_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "DepartmentSet",
+                        principalTable: "Department",
                         principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -138,9 +140,76 @@ namespace Quiz1.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Classrooms",
+                columns: new[] { "ClassRoomId", "Capacity", "GradeLevel", "Name" },
+                values: new object[,]
+                {
+                    { 1, 30, 10, "Software 1A" },
+                    { 2, 25, 10, "Electronics 1A" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Department",
+                columns: new[] { "DepartmentId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Software and programming department", "Computer Science" },
+                    { 2, "Electronics and embedded systems department", "Electronics" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Students",
+                columns: new[] { "StudentId", "ClassRoomId", "DateofBirth", "Email", "FirstName", "LastName", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2010, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "ali@student.com", "Ali", "Mohamed", "01011111111" },
+                    { 2, 1, new DateTime(2010, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "omar@student.com", "Omar", "Ahmed", "01022222222" },
+                    { 3, 1, new DateTime(2010, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "youssef@student.com", "Youssef", "Hany", "01033333333" },
+                    { 4, 2, new DateTime(2010, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "mariam@student.com", "Mariam", "Ali", "01044444444" },
+                    { 5, 2, new DateTime(2009, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "salma@student.com", "Salma", "Mostafa", "01055555555" },
+                    { 6, 2, new DateTime(2010, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "karim@student.com", "Karim", "Tarek", "01066666666" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Teachears",
+                columns: new[] { "TeachearId", "DepartmentId", "Email", "FirstName", "LastName", "PhoneNumber", "Salary" },
+                values: new object[,]
+                {
+                    { 1, 1, "ahmed@school.com", "Ahmed", "Hassan", "01012345678", 15000m },
+                    { 2, 1, "mona@school.com", "Mona", "Ali", "01123456789", 14000m },
+                    { 3, 2, "omar@school.com", "Omar", "Mahmoud", "01234567890", 15500m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SubjectSet",
+                columns: new[] { "SubjectId", "Description", "Grade", "Name", "TeachearId" },
+                values: new object[,]
+                {
+                    { 1, "Programming fundamentals and OOP", 100m, "C++ Programming", 1 },
+                    { 2, "Database and SQL", 100m, "Database Systems", 2 },
+                    { 3, "Web development fundamentals", 100m, "Web Development", 1 },
+                    { 4, "Microcontrollers and embedded programming", 100m, "Embedded Systems", 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Enrollments",
+                columns: new[] { "EnrollmentId", "EnrollmentDate", "Grade", "StudentId", "SubjectId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 90m, 1, 1 },
+                    { 2, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 85m, 1, 2 },
+                    { 3, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 78m, 2, 1 },
+                    { 4, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 88m, 2, 3 },
+                    { 5, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 95m, 3, 1 },
+                    { 6, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 82m, 4, 4 },
+                    { 7, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 91m, 5, 4 },
+                    { 8, new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 76m, 6, 2 }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_DepartmentSet_Name",
-                table: "DepartmentSet",
+                name: "IX_Department_Name",
+                table: "Department",
                 column: "Name",
                 unique: true);
 
@@ -202,7 +271,7 @@ namespace Quiz1.Migrations
                 name: "Teachears");
 
             migrationBuilder.DropTable(
-                name: "DepartmentSet");
+                name: "Department");
         }
     }
 }

@@ -1,41 +1,41 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quiz1.Data;
-using Quiz1.DTO;
+using Quiz1.Model;
 using Quiz1.Repos.Abstraction;
 
 namespace Quiz1.Repos
 {
-    public class StudentRepo : IStudentRepo
+    public class StudentRepo : GenericRepo<Student>, IStudent 
     {
         private readonly AppDbContext _context;
 
-        public StudentRepo(AppDbContext context)
+        public StudentRepo(AppDbContext context) : base(context) 
         {
-             _context=context;
+            _context = context;
         }
-        public StudentDto GetById(int id)
-        {
-            var res=_context.Students.Find(id);
-            return new StudentDto
-            {
-                Email = res.Email,
-                FullName = res.FirstName,
-                PhoneNumber = res.PhoneNumber,
-            };    
-        }
-        public List<StudentDto> StudentGetAll()
-        {
-           var res= _context.Students.Select(x =>
-            new StudentDto
-            {
-                Email = x.Email,
-                FullName = x.FirstName,
-              
-               PhoneNumber=x.PhoneNumber,
-            }
 
-            ).ToList();
-            return res;
+       
+
+
+        public List<Student> GetStudentbyClassRoomId(int roomId)
+        {
+            var ClassNumber = _context.Students.Where(op => op.ClassRoomId == roomId).ToList();
+
+           
+
+            return ClassNumber;
+
+
+        }
+        public List<Student> StoredStudet()
+        {
+            var stu=_context.Students.OrderBy(x=>x.ClassRoomId).ToList();
+            return stu;
+        }
+
+        public Student Update(Student entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
